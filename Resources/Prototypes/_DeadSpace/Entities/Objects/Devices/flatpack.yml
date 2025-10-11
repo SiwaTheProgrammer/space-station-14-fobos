@@ -2,7 +2,7 @@
   parent: BaseFlatpack
   id: GravityGenMiniFlatpack
   name: упаковка мини генератора гравитации
-  description: Унивирасльно-сборная упаковка, используемая для сборки мини генератора гравитации.
+  description: Универсально-сборная упаковка, используемая для сборки мини генератора гравитации.
   components:
   - type: Flatpack
     entity: GravityGeneratorMini
