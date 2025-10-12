@@ -113,7 +113,7 @@
       - !type:PlaySoundBehavior
         sound:
           path: /Audio/Effects/poster_broken.ogg
-#DS14-end
+# DS14-end
 
 - type: entity
   id: BodyBagFolded
