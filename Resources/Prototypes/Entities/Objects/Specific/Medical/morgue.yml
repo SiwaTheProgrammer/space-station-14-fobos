@@ -95,7 +95,7 @@
       paper_label: !type:ContainerSlot
   - type: StaticPrice
     price: 50
-#DS14-start
+# DS14-start
   - type: Damageable
     damageContainer: StructuralInorganic
   - type: Destructible
