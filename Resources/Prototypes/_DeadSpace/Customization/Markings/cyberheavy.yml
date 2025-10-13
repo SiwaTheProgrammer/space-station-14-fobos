@@ -52,7 +52,6 @@
   markingCategory: Legs
   sprites:
   - sprite: _DeadSpace/Mobs/Customization/augments/cyberbody.rsi
-    state: l_foot
 
 - type: marking
   id: AugmentsCyberheavyHead
