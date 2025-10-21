@@ -91,5 +91,5 @@
   text: "/Paperwork/StationGoal/Museum.xml"
 
 - type: stationGoal
-  id: Virusology
-  text: "/Paperwork/StationGoal/Virusology.xml"
+  id: Satellite
+  text: "/Paperwork/StationGoal/Satellite.xml"
