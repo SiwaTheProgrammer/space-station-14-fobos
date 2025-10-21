@@ -62,11 +62,6 @@
   text: "/Paperwork/StationGoal/Anomalies.xml"
 
 - type: stationGoal
-  id: SmartAnimals
-  text: "/Paperwork/StationGoal/SmartAnimals.xml"
-  modifyStationBalance: -7500
-
-- type: stationGoal
   id: HydroponicsInVacuum
   text: "/Paperwork/StationGoal/HydroponicsInVacuum.xml"
 
