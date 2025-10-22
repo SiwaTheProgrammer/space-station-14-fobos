@@ -16,4 +16,8 @@ public sealed partial class StationGoalPrototype : IPrototype
 
     [DataField]
     public int? ModifyStationBalance;
+    [DataField]
+    public string? ExtraStamp;
+    [DataField]
+    public string? ExtraStampColor;
 }
