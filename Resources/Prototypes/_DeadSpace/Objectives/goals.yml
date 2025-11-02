@@ -93,3 +93,9 @@
 - type: stationGoal
   id: Satellite
   text: "/Paperwork/StationGoal/Satellite.xml"
+
+- type: stationGoal
+  id: VitezstviShuttle
+  text: "/Paperwork/StationGoal/VitezstviShuttle.xml"
+  extraStamp: Vítězství
+  extraStampColor: "#790604"

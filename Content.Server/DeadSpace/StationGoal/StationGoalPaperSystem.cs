@@ -9,6 +9,7 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Content.Server.Cargo.Systems;
 using Content.Shared.Cargo.Components;
+using Content.Server.GameTicking;
 
 namespace Content.Server.DeadSpace.StationGoal;
 
@@ -23,6 +24,7 @@ public sealed class StationGoalPaperSystem : EntitySystem
     [Dependency] private readonly IResourceManager _resourceManager = default!;
     [Dependency] private readonly StationSystem _station = default!;
     [Dependency] private readonly CargoSystem _cargo = default!;
+    [Dependency] private readonly GameTicker _ticker = default!;
 
     public override void Initialize()
     {
@@ -91,6 +93,12 @@ public sealed class StationGoalPaperSystem : EntitySystem
 
             wasSent = true;
         }
+        // Add goal gamerules
+        foreach (var rule in goal.Rules)
+        {
+            _ticker.AddGameRule(rule);
+            _ticker.StartGameRule(rule);
+        }
 
         return wasSent;
     }
@@ -108,4 +116,5 @@ public sealed class StationGoalPaperSystem : EntitySystem
 
         return true;
     }
+
 }
