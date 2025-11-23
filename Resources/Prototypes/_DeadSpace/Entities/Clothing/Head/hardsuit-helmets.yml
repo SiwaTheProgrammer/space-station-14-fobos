@@ -92,6 +92,34 @@
     tags: [] # ignore "WhitelistChameleon" tag
 
 - type: entity
+  parent: ClothingHeadHelmetHardsuitEngineeringWhite
+  id: ClothingHeadHelmetHardsuitTaipanTechnicalOperationsSupervisor
+  name: шлем скафандра руководителя техобеспечения
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Clothing/Head/Hardsuits/taipan_tos.rsi
+    layers:
+    - state: icon
+    - state: icon-unshaded
+      shader: unshaded
+  - type: Clothing
+    sprite: _DeadSpace/Clothing/Head/Hardsuits/taipan_tos.rsi
+    clothingVisuals:
+      head:
+      - state: equipped-head
+      - state: equipped-head-unshaded
+        shader: unshaded
+      head-vox:
+      - state: equipped-head-vox
+      - state: equipped-head-unshaded-vox
+        shader: unshaded
+  - type: PointLight
+    color: "#ffdbad"
+  - type: Tag
+    tags: [] # ignore "WhitelistChameleon" tag
+
+- type: entity
   parent: ClothingHeadHelmetHardsuitBrigmedic
   id: ClothingHeadHelmetHardsuitTaipanParamedic
   name: шлем скафандра парамедика

@@ -103,3 +103,19 @@
     clothingPrototype: ClothingHeadHelmetHardsuitTaipanCO
   - type: Tag
     tags: [] # ignore "WhitelistChameleon" tag
+
+- type: entity
+  parent: ClothingOuterHardsuitEngineeringWhite
+  id: ClothingOuterHardsuitTaipanTechnicalOperationsSupervisor
+  name: скафандр руководителя техобеспечения
+  description: Специальный скафандр, защищающий в опасных условиях при низком давлении. Имеет встроенную защиту от радиации.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Clothing/OuterClothing/Hardsuits/taipan_tos.rsi
+  - type: Clothing
+    sprite: _DeadSpace/Clothing/OuterClothing/Hardsuits/taipan_tos.rsi
+  - type: HeldSpeedModifier
+  - type: ToggleableClothing
+    clothingPrototype: ClothingHeadHelmetHardsuitTaipanTechnicalOperationsSupervisor
+  - type: Tag
+    tags: [] # ignore "WhitelistChameleon" tag
