@@ -4,6 +4,7 @@
   description: job-description-centcom-operator
   playTimeTracker: JobCentralCommandOperator
   setPreference: false
+  whitelisted: true
   startingGear: CentcomOperatorGear
   icon: "JobIconNanotrasen"
   supervisors: job-supervisors-centcom-administrator

@@ -94,4 +94,26 @@ public sealed class CCCCVars
     /// </summary>
     public static readonly CVarDef<bool> GameModesUseTotalPlayers =
         CVarDef.Create("game.modes_use_total_players", true, CVar.SERVERONLY | CVar.ARCHIVE);
+
+    /*
+     * Job Whitelist (External API)
+     */
+
+    /// <summary>
+    /// URL внешнего API для проверки whitelist ролей.
+    /// </summary>
+    public static readonly CVarDef<string> JobWhitelistApiUrl =
+        CVarDef.Create(
+            "jobwhitelist.api_url",
+            "http://localhost:5049/api/role-access/check",
+            CVar.SERVERONLY);
+
+    /// <summary>
+    /// Секретный ключ сервера для доступа к JobWhitelist API.
+    /// </summary>
+    public static readonly CVarDef<string> JobWhitelistServerKey =
+        CVarDef.Create(
+            "jobwhitelist.server_key",
+            string.Empty,
+            CVar.SERVERONLY | CVar.CONFIDENTIAL);
 }

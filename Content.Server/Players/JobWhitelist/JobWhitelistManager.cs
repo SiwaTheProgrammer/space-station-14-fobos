@@ -1,8 +1,12 @@
 ﻿using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Content.Server.Database;
 using Content.Shared.CCVar;
+using Content.Shared.DeadSpace.CCCCVars;
 using Content.Shared.Players.JobWhitelist;
 using Content.Shared.Roles;
 using Robust.Server.Player;
@@ -25,6 +29,13 @@ public sealed class JobWhitelistManager : IPostInjectInit
 
     private readonly Dictionary<NetUserId, HashSet<string>> _whitelists = new();
 
+    // DS14-start
+    private static readonly HttpClient Http = new()
+    {
+        Timeout = TimeSpan.FromSeconds(5)
+    };
+    // DS14-end
+
     public void Initialize()
     {
         _net.RegisterNetMessage<MsgJobWhitelist>();
@@ -35,7 +46,75 @@ public sealed class JobWhitelistManager : IPostInjectInit
         var whitelists = await _db.GetJobWhitelists(session.UserId, cancel);
         cancel.ThrowIfCancellationRequested();
         _whitelists[session.UserId] = whitelists.ToHashSet();
+
+        await LoadExternalWhitelist(session, cancel); // DS14
     }
+
+    // DS14-start
+    private async Task LoadExternalWhitelist(ICommonSession session, CancellationToken cancel)
+    {
+        var apiUrl = _config.GetCVar(CCCCVars.JobWhitelistApiUrl);
+        var serverKey = _config.GetCVar(CCCCVars.JobWhitelistServerKey);
+
+        if (string.IsNullOrWhiteSpace(apiUrl) || string.IsNullOrWhiteSpace(serverKey))
+            return;
+
+        if (!_whitelists.TryGetValue(session.UserId, out var whitelist))
+            return;
+
+        foreach (var job in _prototypes.EnumeratePrototypes<JobPrototype>())
+        {
+            cancel.ThrowIfCancellationRequested();
+
+            if (!job.Whitelisted)
+                continue;
+
+            if (whitelist.Contains(job.ID))
+                continue;
+
+            var allowed = await CheckApi(session.Name, apiUrl, serverKey, cancel);
+            if (allowed)
+                whitelist.Add(job.ID);
+        }
+    }
+
+    private async Task<bool> CheckApi(
+        string siKey,
+        string apiUrl,
+        string serverKey,
+        CancellationToken cancel)
+    {
+        var body = JsonSerializer.Serialize(new
+        {
+            ss14UserId = siKey
+        });
+
+        using var request = new HttpRequestMessage(HttpMethod.Post, apiUrl)
+        {
+            Content = new StringContent(body, Encoding.UTF8, "application/json")
+        };
+
+        request.Headers.Add("X-Server-Key", serverKey);
+
+        try
+        {
+            using var response = await Http.SendAsync(request, cancel);
+            if (!response.IsSuccessStatusCode)
+                return false;
+
+            var json = await response.Content.ReadAsStringAsync(cancel);
+            using var doc = JsonDocument.Parse(json);
+
+            return doc.RootElement.TryGetProperty("allowed", out var allowed)
+                   && allowed.GetBoolean();
+        }
+        catch (Exception e)
+        {
+            Log.Error(e, "DS14 JobWhitelist API error for {User}", siKey);
+            return false;
+        }
+    }
+    // DS14-end
 
     private void FinishLoad(ICommonSession session)
     {
