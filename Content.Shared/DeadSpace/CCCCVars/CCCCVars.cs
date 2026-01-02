@@ -114,6 +114,6 @@ public sealed class CCCCVars
     public static readonly CVarDef<string> JobWhitelistServerKey =
         CVarDef.Create(
             "jobwhitelist.server_key",
-            string.Empty,
+             "SS14_SERVER_SECRET_KEY",
             CVar.SERVERONLY | CVar.CONFIDENTIAL);
 }

@@ -73,6 +73,7 @@ public sealed class JobWhitelistManager : IPostInjectInit
                 continue;
 
             var allowed = await CheckApi(session.Name, apiUrl, serverKey, cancel);
+            Console.WriteLine(session.Name + " is allowed to play " + job.ID + " "+ allowed);
             if (allowed)
                 whitelist.Add(job.ID);
         }
